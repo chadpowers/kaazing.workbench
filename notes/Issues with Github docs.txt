@@ -1,0 +1,69 @@
+## Issues with Github docs
+### Resolve directory issues
+Conflict issues will arise:
+
+* ex. `gateway/doc/troubleshooting/p_dev_troubleshoot.md` is different from `enterprise.gateway/doc/troubleshooting/p_dev_troubleshoot.md`
+* Each will go in the same directory *as of now*
+* Same applies to images with same name that differ
+
+**Proposal:**
+Fix conflicts and make sure only 1 version exists in one location. All links go to this one doc. Makes future changes much easier. This has already been done on the issues that I had found thus far. 
+
+### `doc` location within each repo
+In some repos doc lies just under the repo, i.e. `gateway/doc/`, however in others it lies many sub-directories below, i.e. `enterprise.flash.client/migrated/amqp.client.flash/doc/`. 
+
+**Proposal:**
+Each doc should lie just under the repo, i.e. always `'repo'/doc/`.
+
+**Update:** Vanessa indicated that certain clients' docs need to be seperated by type, i.e. `jms` or `ws`, etc. Therefore we may need to have multple docs sub-directories in each repo. **Question:** Does Kaazing want these docs mapped to just `c/`... or... is is better to be mapped to `c/jms/` and `c/ws`?
+
+### Links: Relative or Absolute?
+If the link is intra-repo, directed doc is within the same `'repo'/doc/`, it is quite simple to create the relative link: `about/setup-guide.md`.
+
+If the link is inter-repo, directed doc is in another repo, relative links, while still possible are much more complicated. Picking the correct directory can become a guessing game as to how many directory levels to go up and what the branch is. The can become like `../../../../ios.client/tree/develop/ws/doc/o_dev_objc.md`. *Very ugly and confusing*, especially because you need to deal with the `tree/develop/` directory.
+
+The abosolute link may be easier: `https://github.com/kaazing/ios.client/blob/develop/ws/doc/o_dev_objc.md`.
+
+**Update:**
+Github itself uses absolute links whenever it links cross-repo. I think this is the best solution. For example, if someone would fork a repo, all relative links would break if they crossed to another repo. Take `c.client/`: if someone forked it, the home/index/T.O.C. link would break if it were only relative because said person most likely did not also fork `gateway/`. 
+
+Furthermore, GitHub issue tracking syntax only works with issues (which use markdown style), not Markdown documents (the docs). Therefore, using the `[Link Title](repo/branch:#issue_num)` will not work.
+
+**Proposal:**
+By default, I think we should use relative for intra-repo and absolute for inter-repo. However, I was able resolve both type of links.
+
+### Repo Branch
+Should it be assumed that we *always* pull from the `develop` tree? 
+
+*This should not be an issue if we choose absolute links for cross-repo links.*
+
+### Syntax Highlighting
+There are several errors with syntax highlighting in the documents. The do not correctly highlight in Github and they **break Jekyll**. Among these are the following:
+
+* `auto-links:` and `xml:` => `xml`
+* `m` => `objective-c`
+* `txt` => ''
+* `vb` => `vbnet`
+* `cs` => `c#`
+
+I need help with a workaround for Jekyll such that it will still serve as plain text if it cannot find the available lexer, and potentially notifies someone that the syntax highlighter is incorrect.
+
+### Page Titling
+What does the Company want? "KAAZING.org - Documentation" or a page title specific one?
+
+Note that the amount of space available to display a title in a tab setting is relatively small (< 30 characters). Suggest *Kaazing - Doc - 'Title'*. If the company went this route, we need to find a way to have those short titles for each page in automation.
+
+### Assumptions
+* In general, prioritize _unique naming_ accross all documents. To do this, a standard convention is necessary, and I think that it is already in place.
+* Make sure to have correct _syntax highlighting_ in Github. I've taken care of the above cases; however, Jekyll currently breaks if the it cannot find the specified redcarpet/pygments lexer. See Syntax Highlighting.
+
+### Next Steps
+* Solidify proper doc directories in Github repos. Avoid `migrated/` (see enterprise.flash.client) or multiple levels like `ws/ws/` (see enterprise.dotnet.client)
+	* create a file with cases to more easily change mapping in future
+	* also deal with `ZZZ_ERROR/` doc files (now they are either duplicates or not actually doc files)
+* **Fix links** in all the GitHub docs, this is a massive task and cannot be automated because most cases are unique. However: checking that links are fixed can be automated and can be checked in the Jekyll output as well.
+* Package what I have to compile, fix, build, and serve website in a single automation. (I do not have any idea how to do this).
+	* How many scripts should I make/consolidate to? How to make this flexible? Inputs/output paths. 
+	* And how to run this as part of a build? Docker?
+
+
