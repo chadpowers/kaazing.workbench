@@ -42,8 +42,9 @@ var textNumber, textName, textOdds, textBetName, textBetNumber, textBetAmount, t
 function init() {
   // screen set up
   viewport = document.querySelector("meta[name=viewport]");
-  viewport.setAttribute('content', 'width=device-width, initial-scale=' + screen.width/1366.0 + ', maximum-scale=' + screen.width/1366.0 + ', user-scalable=0');
-
+  viewport.setAttribute('content', 'width=device-width, initial-scale=' + (screen.width + 0.1)/1366.0 + ', maximum-scale=' + (screen.width + 0.1)/1366.0 + ', user-scalable=0');
+  console.log(viewport);
+  
   if (topicNumber == null)
     topicNumber = (Math.random()*900 + 100) | 0;
 
