@@ -40,6 +40,10 @@ var background, spashhorse, horses, fense_back, fence_front, connectQR, finish, 
 var textNumber, textName, textOdds, textBetName, textBetNumber, textBetAmount, textTime;
 
 function init() {
+  // screen set up
+  viewport = document.querySelector("meta[name=viewport]");
+  viewport.setAttribute('content', 'width=device-width, initial-scale=' + screen.width/1366.0 + ', maximum-scale=' + screen.width/1366.0 + ', user-scalable=0');
+
   if (topicNumber == null)
     topicNumber = (Math.random()*900 + 100) | 0;
 
