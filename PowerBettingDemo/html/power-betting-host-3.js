@@ -101,7 +101,7 @@ function handleComplete() {
   finish_shadow.graphics.beginBitmapFill(finish_shadowImg).drawRect(0, 0, finish_shadowImg.width, finish_shadowImg.height);
   finish_shadow.y = 360;
 
-  var clientURL = "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=" + window.location.href.replace("host-3", "client") + "?topic="+topicNumber+"&bgcolor=F47D31&color=ffffff"
+  var clientURL = "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=" + window.location.href.replace("power-betting-host-3", "index") + "?topic="+topicNumber+"&bgcolor=F47D31&color=ffffff"
   //"https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=demos.kaazing.com/powerbetting?topic="+topicNumber+"&bgcolor=F47D31&color=ffffff"
   connectQR = new createjs.Bitmap(clientURL);
   connectQR.x = w/2 - 260/2;
