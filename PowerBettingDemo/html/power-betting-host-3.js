@@ -429,7 +429,7 @@ function Horse(num) {
 
   this.newName = function() {
     if (horseNames.length == 0)
-      horseNameOpt = horseNames.slice(0);
+       horseNames = horseNameOpt.slice(0);
     var i = Math.random()*horseNames.length | 0;
     this.name = horseNames[i];
     horseNames.splice(i, 1);
